@@ -63,6 +63,8 @@ The columns __require__ the number, which is the ordinal of the column in the in
     "maxLength": "int",
     // Check if content is numerical
     "isNumeric": true|false
+    // Check if content is currency
+    "isCurrency": true|false
 }
 ```
 

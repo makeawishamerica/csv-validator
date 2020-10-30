@@ -1,0 +1,33 @@
+﻿{
+  "columnSeperator": ",",
+  "hasHeaderRow": true,
+  "columns": {
+    "1": {
+      "name": "FIRST_NAME"
+    },
+    "2": {
+      "name": "LAST_NAME"
+    },
+    "3": {
+      "name": "PRIMARY_EMAIL",
+      "isRequired": true
+    },
+    "4": {
+      "name": "LO_CONS_ID",
+      "isNumeric": true,
+      "pattern": "^\\d\\d\\d\\d\\d\\d\\d$"
+    },
+    "5": {
+      "name": "INTEREST_ID",
+      "isRequired": true
+    },
+    "6": {
+      "name": "OPT_IN_FLAG",
+      "isRequired": true,
+      "pattern":  "^\\d$"
+    },
+    "7": {
+      "name": "DESCRIPTION"
+    }
+  }
+}

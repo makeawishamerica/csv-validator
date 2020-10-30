@@ -1,0 +1,116 @@
+﻿{
+  "columnSeperator": ",",
+  "hasHeaderRow": true,
+  "columns": {
+    "1": {
+      "name": "CUSTOM_STRING7",
+      "isRequired":  true
+    },
+    "2": {
+      "name": "CONS_ID",
+      "isNumeric": true,
+      "pattern": "^\\d\\d\\d\\d\\d\\d\\d$"
+    },
+    "3": {
+      "name": "FIRST_NAME"
+    },
+    "4": {
+      "name": "LAST_NAME"
+    },
+    "5": {
+      "name": "PRIMARY_EMAIL",
+      "isRequired": true
+    },
+    "6": {
+      "name": "HOME_STREET1"
+    },
+    "7": {
+      "name": "HOME_STREET2"
+    },
+    "8": {
+      "name": "HOME_CITY"
+    },
+    "9": {
+      "name": "HOME_STREET1"
+    },
+    "10": {
+      "name": "HOME_STREET2"
+    },
+    "11": {
+      "name": "HOME_STATEPROV"
+    },
+    "12": {
+      "name": "HOME_ZIP"
+    },
+    "13": {
+      "name": "HOME_COUNTY"
+    },
+    "14": {
+      "name": "HOME_PHONE"
+    },
+    "15": {
+      "name": "BIRTH_DATE",
+      "pattern": "\\d\\d\\d\\d-\\d\\d-\\d\\d"
+    },
+    "16": {
+      "name": "EXTERNAL_LAST_GIFT_DATE",
+      "pattern": "\\d\\d\\d\\d-\\d\\d-\\d\\d"
+    },
+    "17": {
+      "name": "CUSTOM_STRING1"
+    },
+    "18": {
+      "name": "CUSTOM_STRING20"
+    },
+    "19": {
+      "name": "EXTERNAL_LAST_GIFT_AMOUNT",
+      "isCurrency":  true
+    },
+    "20": {
+      "name": "EXTERNAL_LARGEST_GIFT_DATE",
+      "pattern": "\\d\\d\\d\\d-\\d\\d-\\d\\d"
+    },
+    "21": {
+      "name": "EXTERNAL_LARGEST_GIFT_AMOUNT",
+      "isCurrency": true
+    },
+    "22": {
+      "name": "EXTERNAL_LIFETIME_GIFT_AMOUNT",
+      "isCurrency": true
+    },
+    "23": {
+      "name": "EXTERNAL_LIFETIME_GIFT_COUNT",
+      "isNumeric": true
+    },
+    "24": {
+      "name": "CUSTOM_STRING24"
+    },
+    "25": {
+      "name": "CUSTOM_STRING25"
+    },
+    "26": {
+      "name": "CUSTOM_STRING27"
+    },
+    "27": {
+      "name": "CUSTOM_STRING28"
+    },
+    "28": {
+      "name": "CUSTOM_MONETARY_VALUE2",
+      "isCurrency": true
+    },
+    "29": {
+      "name": "CUSTOM_MONETARY_VALUE3",
+      "isCurrency": true
+    },
+    "30": {
+      "name": "CUSTOM_MONETARY_VALUE4",
+      "isCurrency": true
+    },
+    "31": {
+      "name": "CUSTOM_DATE5"
+    },
+    "32": {
+      "name": "CUSTOM_DATE6"
+    }
+  }
+}
