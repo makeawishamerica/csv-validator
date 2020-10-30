@@ -38,6 +38,9 @@
     <Content Include="Data\Configuration\simplefile-configuration.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Data\Configuration\maw-interest-config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\Configuration\testfile-configuration.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
