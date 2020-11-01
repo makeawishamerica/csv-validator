@@ -42,7 +42,8 @@ namespace FormatValidator.Validators
             {
                 if (currentColumn < _columns.Length)
                 {
-                    bool result = _columns[currentColumn].IsValid(parts[currentColumn]);
+                    string elemToCheck = parts[currentColumn].Trim().Replace("\"", "");
+                    bool result = _columns[currentColumn].IsValid(elemToCheck);
 
                     IList<ValidationError> newErrors = _columns[currentColumn].GetErrors();
                     _errorInformation.Errors.AddRange(newErrors);

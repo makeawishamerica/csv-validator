@@ -2,6 +2,7 @@
 namespace FormatValidatorTests.Unit
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using FormatValidator;
     using FormatValidator.Validators;
@@ -14,6 +15,20 @@ namespace FormatValidatorTests.Unit
         public void Validator_Create()
         {
             Validator validator = new Validator();
+        }
+
+        [TestMethod]
+        public void Validator_ReturnsAValidator()
+        {
+            string INPUTFILE = @"Data/045-Constituent-jwycoff@wish.org.csv";
+
+            string[] parts = Path.GetFileName(INPUTFILE).Replace(".csv", "").ToLower().Split('-');
+            string JSON = System.IO.File.ReadAllText(@"Data/Configuration/maw-constituent-config.json");
+
+            Validator validator = Validator.FromJson(JSON);
+            FileSourceReader reader = new FileSourceReader(INPUTFILE);
+
+            List<RowValidationError> errors = new List<RowValidationError>(validator.Validate(reader));
         }
 
         [TestMethod]

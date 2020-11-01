@@ -1,72 +1,79 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>ValidateTests</AssemblyName>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <IsTestProject>true</IsTestProject>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Data\columndelimiter-testfile-1.csv" />
-    <None Remove="Data\columndelimiter-testfile-2.csv" />
-    <None Remove="Data\columndelimiter-testfile-3.csv" />
-    <None Remove="Data\Configuration\configuration.json" />
-    <None Remove="Data\Configuration\simplefile-configuration.json" />
-    <None Remove="Data\Configuration\testfile-configuration.json" />
-    <None Remove="Data\headers-testfile-1.csv" />
-    <None Remove="Data\rowterminator-testfile-1.csv" />
-    <None Remove="Data\rowterminator-testfile-2.csv" />
-    <None Remove="Data\simplefile.csv" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Data\columndelimiter-testfile-1.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\columndelimiter-testfile-2.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\columndelimiter-testfile-3.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Configuration\configuration.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Configuration\simplefile-configuration.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Configuration\maw-interest-config.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\Configuration\testfile-configuration.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\headers-testfile-1.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\rowterminator-testfile-1.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\rowterminator-testfile-2.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Data\simplefile.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Validate.Lib\Validate.Lib.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
-    <PackageReference Include="Moq" Version="4.14.1" />
-    <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
-  </ItemGroup>
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>ValidateTests</AssemblyName>
+        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+        <IsTestProject>true</IsTestProject>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove="Data\columndelimiter-testfile-1.csv" />
+        <None Remove="Data\columndelimiter-testfile-2.csv" />
+        <None Remove="Data\columndelimiter-testfile-3.csv" />
+        <None Remove="Data\Configuration\configuration.json" />
+        <None Remove="Data\Configuration\simplefile-configuration.json" />
+        <None Remove="Data\Configuration\testfile-configuration.json" />
+        <None Remove="Data\headers-testfile-1.csv" />
+        <None Remove="Data\rowterminator-testfile-1.csv" />
+        <None Remove="Data\rowterminator-testfile-2.csv" />
+        <None Remove="Data\simplefile.csv" />
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Data\columndelimiter-testfile-1.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\columndelimiter-testfile-2.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\columndelimiter-testfile-3.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\045-Interest-jwycoff@wish.org.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\045-Constituent-jwycoff@wish.org.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\045-Constituent-sallen@wish.org.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\Configuration\configuration.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\Configuration\simplefile-configuration.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\Configuration\maw-constituent-config.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\Configuration\maw-interest-config.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\Configuration\testfile-configuration.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\headers-testfile-1.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\rowterminator-testfile-1.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\rowterminator-testfile-2.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\simplefile.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Validate.Lib\Validate.Lib.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
+        <PackageReference Include="MSTest.TestAdapter" Version="2.1.1" />
+        <PackageReference Include="Moq" Version="4.14.1" />
+        <PackageReference Include="MSTest.TestFramework" Version="2.1.1" />
+    </ItemGroup>
 </Project>
