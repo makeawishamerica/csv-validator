@@ -54,6 +54,10 @@ namespace FormatValidator
                     {
                         group.Add(new DateValidator());
                     }
+                    if (columnConfig.Value.IsBoolean)
+                    {
+                        group.Add(new BooleanValidator());
+                    }
                     if (columnConfig.Value.IsCurrency)
                     {
                         group.Add(new CurrencyValidator());
