@@ -33,6 +33,8 @@ namespace FormatValidator
             _converted.RowSeperator = UnescapeString(_fromConfig.RowSeperator);
             _converted.ColumnSeperator = UnescapeString(_fromConfig.ColumnSeperator);
             _converted.HasHeaderRow = _fromConfig.HasHeaderRow;
+            _converted.ConnectionStrings = _fromConfig.ConnectionStrings;
+            _converted.ChapterId = _fromConfig.ChapterId;
         }
 
         private void ConvertColumns()
@@ -55,6 +57,14 @@ namespace FormatValidator
                     if (columnConfig.Value.IsCurrency)
                     {
                         group.Add(new CurrencyValidator());
+                    }
+                    if (columnConfig.Value.IsConstituentLookup)
+                    {
+                        group.Add(new ConstituentValidator(_converted.ConnectionStrings.Dev));
+                    }
+                    if (columnConfig.Value.IsInterestLookup)
+                    {
+                        group.Add(new InterestValidator(_converted.ConnectionStrings.Dev, _converted.ChapterId));
                     }
 
                     _converted.Columns.Add(columnConfig.Key, group);

@@ -2,6 +2,7 @@
 namespace FormatValidator
 {
     using System.Collections.Generic;
+    using Validate.Lib;
     using Validators;
 
     internal class ConvertedValidators
@@ -18,5 +19,9 @@ namespace FormatValidator
         public string ColumnSeperator { get; set; }
 
         public bool HasHeaderRow { get; set; }
+
+        public ConnectionStrings ConnectionStrings { get; set; }
+
+        public string ChapterId { get; set; }
     }
 }

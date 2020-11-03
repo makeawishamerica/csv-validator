@@ -1,6 +1,11 @@
 ﻿{
   "columnSeperator": ",",
   "hasHeaderRow": true,
+  "connectionStrings": {
+    "dev": "Server=COLO-REPORT-01;Database=Staging;User Id=Service_AppInt_Task;Password=SzPGbc4V;",
+    "staging": "Server=COLO-REPORT-01;Database=Staging;User Id=Service_AppInt_Task;Password=SzPGbc4V;",
+    "prod": "Server=COLO-REPORT-01;Database=MAW_House;User Id=Service_AppInt_Task;Password=SzPGbc4V;"
+  },
   "columns": {
     "1": {
       "name": "FIRST_NAME"
@@ -10,21 +15,24 @@
     },
     "3": {
       "name": "PRIMARY_EMAIL",
-      "isRequired": true
+      "isRequired": true,
+      "isConstituentLookup": true
     },
     "4": {
       "name": "LO_CONS_ID",
       "isNumeric": true,
-      "pattern": "^\\d\\d\\d\\d\\d\\d\\d$"
+      "pattern": "^\\d\\d\\d\\d\\d\\d\\d$",
+      "isConstituentLookup": true
     },
     "5": {
       "name": "INTEREST_ID",
-      "isRequired": true
+      "isRequired": true,
+      "isInterestLookup": true
     },
     "6": {
       "name": "OPT_IN_FLAG",
       "isRequired": true,
-      "pattern":  "^\\d$"
+      "pattern": "^\\d$"
     },
     "7": {
       "name": "DESCRIPTION"

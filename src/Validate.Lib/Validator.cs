@@ -3,7 +3,9 @@
 [assembly: InternalsVisibleTo("ValidateTests")]
 namespace FormatValidator
 {
+    using System;
     using System.Collections.Generic;
+    using Validate.Lib;
     using Validators;
 
     /// <summary>
@@ -19,6 +21,8 @@ namespace FormatValidator
         private string _rowSeperator;
         private int _totalRowsChecked;
         private bool _hasHeaderRow;
+        private ConnectionStrings _connectionStrings;
+        private string _chapterId;
 
         /// <summary>
         /// Initialises a new instance of Validator
@@ -54,6 +58,8 @@ namespace FormatValidator
             Validator validator = new Validator();
             validator.SetColumnSeperator(converted.ColumnSeperator);
             validator.SetRowSeperator(converted.RowSeperator);
+            validator.SetConnectionStrings(converted.ConnectionStrings);
+            validator.SetChapterId(converted.ChapterId);
             validator.TransferConvertedColumns(converted);
             validator._hasHeaderRow = converted.HasHeaderRow;
 
@@ -110,6 +116,30 @@ namespace FormatValidator
             if (!string.IsNullOrEmpty(rowSeperator))
             {
                 _rowSeperator = rowSeperator;
+            }
+        }
+
+        /// <summary>
+        /// Change the connection strings
+        /// </summary>
+        /// <param name="seperator">The seperator</param>
+        public void SetConnectionStrings(ConnectionStrings conn)
+        {
+            if (conn != null)
+            {
+                _connectionStrings = conn;
+            }
+        }
+
+        /// <summary>
+        /// The set chapter id.
+        /// </summary>
+        /// <param name="chapterId">The chapter id.</param>
+        public void SetChapterId(string chapterId)
+        {
+            if (!String.IsNullOrEmpty(chapterId))
+            {
+                _chapterId = chapterId;
             }
         }
 

@@ -1,6 +1,11 @@
 ﻿{
   "columnSeperator": ",",
   "hasHeaderRow": true,
+  "connectionStrings": {
+    "dev": "Server=COLO-REPORT-01;Database=Staging;User Id=Service_AppInt_Task;Password=SzPGbc4V;",
+    "staging": "Server=COLO-REPORT-01;Database=Staging;User Id=Service_AppInt_Task;Password=SzPGbc4V;",
+    "prod": "Server=COLO-REPORT-01;Database=MAW_House;User Id=Service_AppInt_Task;Password=SzPGbc4V;"
+  },
   "columns": {
     "1": {
       "name": "CUSTOM_STRING7_(CONSREID)",
@@ -9,7 +14,8 @@
     "2": {
       "name": "CONS_ID",
       "isNumeric": true,
-      "pattern": "^\\d\\d\\d\\d\\d\\d\\d$"
+      "pattern": "^\\d\\d\\d\\d\\d\\d\\d$",
+      "isConstituentLookup": true
     },
     "3": {
       "name": "FIRST_NAME"
@@ -19,7 +25,8 @@
     },
     "5": {
       "name": "PRIMARY_EMAIL",
-      "isRequired": true
+      "isRequired": true,
+      "isConstituentLookup": true
     },
     "6": {
       "name": "HOME_STREET1"

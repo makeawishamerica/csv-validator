@@ -7,6 +7,7 @@ namespace FormatValidatorTests.Unit
     using FormatValidator;
     using FormatValidator.Validators;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Newtonsoft.Json;
 
     [TestClass]
     public class ValidatorTests
@@ -20,10 +21,15 @@ namespace FormatValidatorTests.Unit
         [TestMethod]
         public void Validator_ReturnsAValidator()
         {
-            string INPUTFILE = @"Data/045-Constituent-jwycoff@wish.org.csv";
+            string INPUTFILE = @"data\045-Interest-jwycoff@wish.org.csv";
 
             string[] parts = Path.GetFileName(INPUTFILE).Replace(".csv", "").ToLower().Split('-');
-            string JSON = System.IO.File.ReadAllText(@"Data/Configuration/maw-constituent-config.json");
+            string JSON = System.IO.File.ReadAllText(@"data\configuration\maw-" + parts[1] + "-config.json");
+
+            var config = JsonConvert.DeserializeObject<IDictionary<string, object>>(JSON);
+            config.Add("chapterId", parts[0]);
+
+            JSON = JsonConvert.SerializeObject(config);
 
             Validator validator = Validator.FromJson(JSON);
             FileSourceReader reader = new FileSourceReader(INPUTFILE);
