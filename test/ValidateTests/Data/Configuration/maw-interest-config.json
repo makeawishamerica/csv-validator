@@ -16,6 +16,7 @@
     "3": {
       "name": "PRIMARY_EMAIL",
       "isRequired": true,
+      "isEmail":  true,
       "isConstituentLookup": true
     },
     "4": {
@@ -35,7 +36,7 @@
       "isBoolean":  true
     },
     "7": {
-      "name": "DESCRIPTION"
+      "name": "DESCRIPTION (TO BE DELETED)"
     }
   }
 }

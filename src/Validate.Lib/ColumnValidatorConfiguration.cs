@@ -21,6 +21,8 @@ namespace FormatValidator
 
         public bool IsBoolean { get; set; }
 
+        public bool IsEmail { get; set; }
+
         public bool IsConstituentLookup { get; set; }
 
         public bool IsInterestLookup { get; set; }

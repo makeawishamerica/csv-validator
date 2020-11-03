@@ -58,6 +58,10 @@ namespace FormatValidator
                     {
                         group.Add(new BooleanValidator());
                     }
+                    if (columnConfig.Value.IsEmail)
+                    {
+                        group.Add(new EmailValidator());
+                    }
                     if (columnConfig.Value.IsCurrency)
                     {
                         group.Add(new CurrencyValidator());

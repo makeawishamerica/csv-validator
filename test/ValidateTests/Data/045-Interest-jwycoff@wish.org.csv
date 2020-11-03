@@ -1,5 +1,5 @@
 FIRST_NAME,LAST_NAME,PRIMARY_EMAIL,LO CONS_ID,INTEREST_ID,OPT_IN_FLAG,DESCRIPTION (TO BE DELETED)
-First Name,Last Name,test@email.com,4906895,2024,TRUE,SFMC_045_IsBoardMember
+First Name,Last Name,testemail.com,4906895,2024,TRUE,SFMC_045_IsBoardMember
 First Name,Last Name,test@email.com,2821548,2024,1,SFMC_045_IsBoardMember
 First Name,Last Name,test@email.com,3827697,2024,true,SFMC_045_IsBoardMember
 First Name,Last Name,test@email.com,4906969,2024,FALSE,SFMC_045_IsBoardMember
@@ -16,7 +16,7 @@ First Name,Last Name,test@email.com,4871455,2030,TRUE,SFMC_045_EventParticipatio
 First Name,Last Name,test@email.com,3878024,2030,TRUE,SFMC_045_EventParticipations_Attended
 First Name,Last Name,test@email.com,4013844,2030,TRUE,SFMC_045_EventParticipations_Attended
 First Name,Last Name,test@email.com,1448272,2030,TRUE,SFMC_045_EventParticipations_Attended
-First Name,Last Name,test@email.com,2370231,2030,TRUE,SFMC_045_EventParticipations_Attended
+First Name,Last Name,,2370231,2030,TRUE,SFMC_045_EventParticipations_Attended
 First Name,Last Name,test@email.com,2839496,2030,TRUE,SFMC_045_EventParticipations_Attended
 First Name,Last Name,test@email.com,4906895,2030,TRUE,SFMC_045_EventParticipations_Attended
 First Name,Last Name,test@email.com,3604463,2030,TRUE,SFMC_045_EventParticipations_Attended
