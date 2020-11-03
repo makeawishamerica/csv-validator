@@ -12,6 +12,7 @@ namespace FormatValidator.Validators
     /// <seealso cref="Validator"/>
     internal class RowValidator
     {
+        private string[] _header;
         private ValidatorGroup[] _columns;
         private RowValidationError _errorInformation;
         private string _columnSeperator;
@@ -150,6 +151,16 @@ namespace FormatValidator.Validators
         {
             get { return _columnSeperator; }
             set { _columnSeperator = value; }
+        }
+
+        /// <summary>
+        /// The get header.
+        /// </summary>
+        /// <param name="toCheck">The to check.</param>
+        /// <returns>The result.</returns>
+        public string[] GetHeader(string toCheck)
+        {
+            return ColumnSplitter.Split(toCheck, _columnSeperator);
         }
     }
 }

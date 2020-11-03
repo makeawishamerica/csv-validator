@@ -25,6 +25,11 @@ namespace FormatValidator
         private string _chapterId;
 
         /// <summary>
+        /// Gets or Sets the header.
+        /// </summary>
+        public string[] Header { get; set; }
+
+        /// <summary>
         /// Initialises a new instance of Validator
         /// </summary>
         internal Validator()
@@ -79,6 +84,7 @@ namespace FormatValidator
 
                 if (IsHeaderRow())
                 {
+                    Header = _rowValidator.GetHeader(line);
                 }
                 else if (!_rowValidator.IsValid(line))
                 {
