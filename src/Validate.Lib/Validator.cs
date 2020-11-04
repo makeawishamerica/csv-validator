@@ -21,7 +21,6 @@ namespace FormatValidator
         private ColumnValidator _colValidator;
         private string _rowSeperator;
         private int _totalRowsChecked;
-        private int _totalColsChecked;
         private bool _hasHeaderRow;
         private ConnectionStrings _connectionStrings;
         private string _chapterId;
@@ -118,7 +117,7 @@ namespace FormatValidator
                     yield return error;
                 }
 
-                break;
+                break; // only process the first line
             }
         }
 
@@ -140,10 +139,10 @@ namespace FormatValidator
             }
         }
 
-		/// <summary>
-		/// Change the row seperator
-		/// </summary>
-		/// <param name="rowSeperator"></param>
+        /// <summary>
+        /// Change the row seperator
+        /// </summary>
+        /// <param name="rowSeperator"></param>
         public void SetRowSeperator(string rowSeperator)
         {
             if (!string.IsNullOrEmpty(rowSeperator))
@@ -201,20 +200,12 @@ namespace FormatValidator
 
         private bool IsHeaderRow() => _hasHeaderRow && _totalRowsChecked == 1;
 
-		/// <summary>
-		/// Total number of rows that were checked in the last validation.
-		/// </summary>
+        /// <summary>
+        /// Total number of rows that were checked in the last validation.
+        /// </summary>
         public int TotalRowsChecked
         {
             get { return _totalRowsChecked; }
-        }
-
-        /// <summary>
-        /// Total number of columns that were checked in the last validation.
-        /// </summary>
-        public int TotalColsChecked
-        {
-            get { return _totalColsChecked; }
         }
     }
 }
