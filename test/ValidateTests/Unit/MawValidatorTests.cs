@@ -17,7 +17,7 @@ namespace FormatValidatorTests.Unit
         [TestMethod]
         public void Validator_ReturnsAValidator()
         {
-            string[] files = new string[] { @"Data/045-Interest-sallen@wish.org.csv" };
+            string[] files = new string[] { @"Data/045-Constituent-sallen@wish.org.csv" };
 
             foreach (var file in files)
             {
@@ -71,9 +71,9 @@ namespace FormatValidatorTests.Unit
                         }
                         else
                         {
+                            string duplicatesErrorLog = GenerateDuplicatesErrorLog(rowErrors, header);
                             string standardsErrorLog = GenerateStandardsErrorLog(rowErrors, header);
                             string exceptionErrorLog = GenerateExceptionErrorLog(colErrors);
-
 
                             content = String.Format("The attached file {0}-{1}-{2}.csv has been validated and there are errors.  " +
                                 "The details of the errors that need to be corrected are attached.  " +
@@ -83,6 +83,12 @@ namespace FormatValidatorTests.Unit
                             message.Body = content;
                             message.Attachments.Add(new Attachment(file));
 
+                            if (!String.IsNullOrEmpty(duplicatesErrorLog))
+                            {
+                                string duplicatesFileName = String.Format(@"Data/{0}-{1}-{2}-Duplicates.csv", chid, function, email);
+                                File.WriteAllText(duplicatesFileName, duplicatesErrorLog);
+                                message.Attachments.Add(new Attachment(duplicatesFileName));
+                            }
                             if (!String.IsNullOrEmpty(standardsErrorLog))
                             {
                                 string standardsFileName = String.Format(@"Data/{0}-{1}-{2}-Standards.csv", chid, function, email);
@@ -121,10 +127,13 @@ namespace FormatValidatorTests.Unit
             for (var i = 0; i < errors.Count; i++)
             {
                 string row = errors[i].Row.ToString();
-                foreach (var error in errors[0].Errors)
+                foreach (var error in errors[i].Errors)
                 {
-                    string colName = header[error.Column - 1];
-                    content += String.Format("{0},{1},{2}\n", colName, row, error.Message);
+                    if (error.ErrorType.Equals(ErrorType.General))
+                    {
+                        string colName = header[error.Column - 1];
+                        content += String.Format("{0},{1},{2}\n", colName, row, error.Message);
+                    }
                 }
             }
 
@@ -145,6 +154,43 @@ namespace FormatValidatorTests.Unit
                 string colName = GetExcelColEquiv(error.Column);
                 string[] parts = error.Message.Split('|');
                 content += String.Format("{0},{1},{2}\n", colName, parts[0], parts[1]);
+            }
+
+            return content;
+        }
+
+        /// <summary>
+        /// The generate duplicate exception error log.
+        /// </summary>
+        /// <param name="errors">The errors.</param>
+        /// <returns>The result.</returns>
+        private string GenerateDuplicatesErrorLog(List<RowValidationError> errors, string[] header)
+        {
+            string content = "";
+
+            for (var i = 0; i < errors.Count; i++)
+            {
+                string[] row = errors[i].Content.Split(',');
+
+                foreach (var error in errors[i].Errors)
+                {
+                    if (error.ErrorType.Equals(ErrorType.Duplicate))
+                    {
+                        string[] parts = error.Message.Split('|');
+                        int refIndex = int.Parse(parts[0]);
+
+                        string excelCol = GetExcelColEquiv(refIndex);
+                        string colName = header[refIndex - 1];
+                        content += String.Format("{0} (Column {1}),", colName, excelCol);
+
+
+                        excelCol = GetExcelColEquiv(error.Column);
+                        colName = header[error.Column - 1];
+                        content += String.Format("{0} (Column {1})\n", colName, excelCol);
+
+                        content += String.Format("{0},{1}\n", row[int.Parse(parts[0]) - 1], parts[1]);
+                    }
+                }
             }
 
             return content;

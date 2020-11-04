@@ -1,5 +1,6 @@
 ﻿{
   "columnSeperator": ",",
+  "rowSeperator": "\n",
   "hasHeaderRow": true,
   "connectionStrings": {
     "dev": "Server=COLO-REPORT-01;Database=Staging;User Id=Service_AppInt_Task;Password=SzPGbc4V;",
@@ -25,6 +26,8 @@
     },
     "5": {
       "name": "PRIMARY_EMAIL",
+      "referenceCol": 2,
+      "isUnique": true,
       "isRequired": true,
       "isConstituentLookup": true
     },

@@ -13,6 +13,7 @@ namespace FormatValidator
         {
             _atCharacter = at;
             _message = message;
+            ErrorType = ErrorType.General;
         }
 
         public string Message
@@ -37,5 +38,23 @@ namespace FormatValidator
             get;
             internal set;
         }
+
+        /// <summary>
+        /// The column the error occurred in.
+        /// </summary>
+        public ErrorType ErrorType
+        {
+            get;
+            set;
+        }
+    }
+
+    /// <summary>
+    /// Error Type enum
+    /// </summary>
+    public enum ErrorType
+    {
+        General = 0,
+        Duplicate = 1
     }
 }

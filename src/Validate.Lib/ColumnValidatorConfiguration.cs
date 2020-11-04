@@ -15,6 +15,10 @@ namespace FormatValidator
 
         public bool IsRequired { get; set; }
 
+        public int ReferenceCol { get; set; }
+
+        public bool IsUnique { get; set; }
+
         public bool IsCurrency { get; set; }
 
         public bool IsDate { get; set; }

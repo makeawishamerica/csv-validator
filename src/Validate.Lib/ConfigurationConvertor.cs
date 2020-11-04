@@ -54,6 +54,10 @@ namespace FormatValidator
                     {
                         group.Add(new NameValidator(columnConfig.Value.Name));
                     }
+                    if (columnConfig.Value.IsUnique)
+                    {
+                        group.Add(new UniqueValidator(columnConfig.Value.ReferenceCol));
+                    }
                     if (columnConfig.Value.IsDate)
                     {
                         group.Add(new DateValidator());
