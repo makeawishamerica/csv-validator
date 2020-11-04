@@ -12,7 +12,6 @@ namespace FormatValidator.Validators
     /// <seealso cref="Validator"/>
     internal class RowValidator
     {
-        private string[] _header;
         private ValidatorGroup[] _columns;
         private RowValidationError _errorInformation;
         private string _columnSeperator;

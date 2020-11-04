@@ -108,26 +108,17 @@ namespace FormatValidator
         {
             foreach (string line in reader.ReadLines(_rowSeperator))
             {
-                if (IsHeaderRow())
+                Header = _rowValidator.GetHeader(line);
+
+                if (!_colValidator.IsValid(line))
                 {
-                    Header = _rowValidator.GetHeader(line);
+                    ColumnValidationError error = _colValidator.GetError();
+                    _colValidator.ClearErrors();
 
-                    foreach (string col in Header)
-                    {
-                        _totalColsChecked++;
-
-                        if (!_colValidator.IsValid(col))
-                        {
-                            ColumnValidationError error = _colValidator.GetError();
-                            error.Column = _totalColsChecked;
-                            _colValidator.ClearErrors();
-
-                            yield return error;
-                        }
-                    }
-
-                    break;
+                    yield return error;
                 }
+
+                break;
             }
         }
 
@@ -140,10 +131,12 @@ namespace FormatValidator
             if (string.IsNullOrEmpty(seperator))
             {
                 _rowValidator.ColumnSeperator = ",";
+                _colValidator.ColumnSeperator = ",";
             }
             else
             {
                 _rowValidator.ColumnSeperator = seperator;
+                _colValidator.ColumnSeperator = seperator;
             }
         }
 
@@ -194,7 +187,14 @@ namespace FormatValidator
             {
                 foreach (IValidator columnValidator in column.Value)
                 {
-                    _rowValidator.AddColumnValidator(column.Key, columnValidator);
+                    if (columnValidator.GetType().Equals(typeof(NameValidator)))
+                    {
+                        _colValidator.AddColumnValidator(column.Key, columnValidator);
+                    }
+                    else
+                    {
+                        _rowValidator.AddColumnValidator(column.Key, columnValidator);
+                    }
                 }
             }
         }

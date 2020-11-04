@@ -17,7 +17,7 @@ namespace FormatValidatorTests.Unit
         [TestMethod]
         public void Validator_ReturnsAValidator()
         {
-            string[] files = new string[] { @"data\045-Interest-sallen@wish.org.csv" };
+            string[] files = new string[] { @"Data/045-Interest-sallen@wish.org.csv" };
 
             foreach (var file in files)
             {
@@ -35,7 +35,7 @@ namespace FormatValidatorTests.Unit
 
                     try
                     {
-                        string JSON = System.IO.File.ReadAllText(@"data\configuration\maw-" + function.ToLower() + "-config.json");
+                        string JSON = System.IO.File.ReadAllText(@"Data/Configuration/maw-" + function.ToLower() + "-config.json");
 
                         // Add the chapter id to the json string
                         var config = JsonConvert.DeserializeObject<IDictionary<string, object>>(JSON);
@@ -60,7 +60,7 @@ namespace FormatValidatorTests.Unit
                         message.To.Add(emailTo);
                         message.Subject = subject;
 
-                        if (rowErrors.Count == 0)
+                        if (rowErrors.Count == 0 && colErrors.Count == 0)
                         {
                             content = String.Format("The attached file {0}-{1}-{2}.csv has been validated successfully with no errors.  " +
                                 "Please proceed with the import into LO and remember to check the count of records " +
@@ -71,10 +71,9 @@ namespace FormatValidatorTests.Unit
                         }
                         else
                         {
-                            string errorLog = GenerateStandardsErrorLog(rowErrors, header);
-                            string exceptionFileName = String.Format(@"data\{0}-{1}-{2}-Standards.csv", chid, function, email);
+                            string standardsErrorLog = GenerateStandardsErrorLog(rowErrors, header);
+                            string exceptionErrorLog = GenerateExceptionErrorLog(colErrors);
 
-                            File.WriteAllText(exceptionFileName, errorLog);
 
                             content = String.Format("The attached file {0}-{1}-{2}.csv has been validated and there are errors.  " +
                                 "The details of the errors that need to be corrected are attached.  " +
@@ -83,7 +82,19 @@ namespace FormatValidatorTests.Unit
 
                             message.Body = content;
                             message.Attachments.Add(new Attachment(file));
-                            message.Attachments.Add(new Attachment(exceptionFileName));
+
+                            if (!String.IsNullOrEmpty(standardsErrorLog))
+                            {
+                                string standardsFileName = String.Format(@"Data/{0}-{1}-{2}-Standards.csv", chid, function, email);
+                                File.WriteAllText(standardsFileName, standardsErrorLog);
+                                message.Attachments.Add(new Attachment(standardsFileName));
+                            }
+                            if (!String.IsNullOrEmpty(exceptionErrorLog))
+                            {
+                                string exceptionFileName = String.Format(@"Data/{0}-{1}-{2}-ColumnExceptions.csv", chid, function, email);
+                                File.WriteAllText(exceptionFileName, exceptionErrorLog);
+                                message.Attachments.Add(new Attachment(exceptionFileName));
+                            }
                         }
 
                         //SmtpClient smtp = new SmtpClient("wish-org.mail.protection.outlook.com");
@@ -99,7 +110,7 @@ namespace FormatValidatorTests.Unit
         }
 
         /// <summary>
-        /// The generate error log.
+        /// The generate standards error log.
         /// </summary>
         /// <param name="errors">The errors.</param>
         /// <returns>The result.</returns>
@@ -118,6 +129,46 @@ namespace FormatValidatorTests.Unit
             }
 
             return content;
+        }
+
+        /// <summary>
+        /// The generate column exception error log.
+        /// </summary>
+        /// <param name="errors">The errors.</param>
+        /// <returns>The result.</returns>
+        private string GenerateExceptionErrorLog(List<ColumnValidationError> errors)
+        {
+            string content = "Column,Expected Header Value,Exception Header Value\n";
+
+            foreach (var error in errors[0].Errors)
+            {
+                string colName = GetExcelColEquiv(error.Column);
+                string[] parts = error.Message.Split('|');
+                content += String.Format("{0},{1},{2}\n", colName, parts[0], parts[1]);
+            }
+
+            return content;
+        }
+
+        /// <summary>
+        /// Get Excel Column Equivalent
+        /// </summary>
+        /// <param name="column"></param>
+        /// <returns></returns>
+        private string GetExcelColEquiv(int column)
+        {
+            int dividend = column;
+            string columnName = String.Empty;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+
+            return columnName;
         }
     }
 }

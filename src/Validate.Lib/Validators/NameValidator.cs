@@ -12,10 +12,10 @@ namespace FormatValidator.Validators
 
         public override bool IsValid(string toCheck)
         {
-            bool isValid = !string.IsNullOrWhiteSpace(toCheck) || Name.Equals(toCheck);
+            bool isValid = string.IsNullOrWhiteSpace(toCheck) || Name.Equals(toCheck);
             if (!isValid)
             {
-                base.Errors.Add(new ValidationError(0, string.Format("Column name '{0}' was not equal to {1}.", toCheck, Name)));
+                base.Errors.Add(new ValidationError(0, string.Format("{0}|{1}", Name, toCheck)));
             }
             return isValid;
         }

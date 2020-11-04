@@ -30,6 +30,15 @@
         <Content Include="Data\columndelimiter-testfile-3.csv">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
+        <Content Include="Data\045-Constituent-sallen@wish.org.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\045-Interest-sallen@wish.org.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Data\045-Constituent-webadmin@wish.org.csv">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
         <Content Include="Data\Configuration\configuration.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>

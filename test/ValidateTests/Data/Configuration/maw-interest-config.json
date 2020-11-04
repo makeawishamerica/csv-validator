@@ -1,5 +1,6 @@
 ﻿{
   "columnSeperator": ",",
+  "rowSeperator": "\n",
   "hasHeaderRow": true,
   "connectionStrings": {
     "dev": "Server=COLO-REPORT-01;Database=Staging;User Id=Service_AppInt_Task;Password=SzPGbc4V;",
@@ -20,7 +21,7 @@
       "isConstituentLookup": true
     },
     "4": {
-      "name": "LO_CONS_ID",
+      "name": "LO CONS_ID",
       "isNumeric": true,
       "pattern": "^\\d\\d\\d\\d\\d\\d\\d$",
       "isConstituentLookup": true

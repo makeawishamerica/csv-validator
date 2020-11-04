@@ -5,7 +5,6 @@ namespace FormatValidator
 
     public class ColumnValidationError
     {
-        private int _col;
         private string _content;
         private List<ValidationError> _errors;
 
@@ -17,12 +16,6 @@ namespace FormatValidator
         public List<ValidationError> Errors
         {
             get { return _errors; }
-        }
-
-        public int Column
-        {
-            get { return _col; }
-            set { _col = value; }
         }
 
         public string Content
