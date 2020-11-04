@@ -67,6 +67,8 @@ The columns __require__ the number, which is the ordinal of the column in the in
     "isCurrency": true|false
     // Check if content is date
     "isDate": true|false
+    // Check if content is boolean
+    "isBoolean": true|false
     // Check if constituent is valid
     "isConstituentLookup": true|false
     // Check if interest is valid
