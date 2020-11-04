@@ -10,7 +10,7 @@
   "columns": {
     "1": {
       "name": "CUSTOM_STRING7_(CONSREID)",
-      "pattern": "[^A-Za-z0-9]+",
+      "pattern": "^\\w+$",
       "isRequired": true,
       "code": "Invalid value: value is not numeric/text"
     },

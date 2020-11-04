@@ -167,6 +167,7 @@ namespace FormatValidatorTests.Unit
         private string GenerateDuplicatesErrorLog(List<RowValidationError> errors, string[] header)
         {
             string content = "";
+            int counter = 0;
 
             for (var i = 0; i < errors.Count; i++)
             {
@@ -179,16 +180,21 @@ namespace FormatValidatorTests.Unit
                         string[] parts = error.Message.Split('|');
                         int refIndex = int.Parse(parts[0]);
 
-                        string excelCol = GetExcelColEquiv(refIndex);
-                        string colName = header[refIndex - 1];
-                        content += String.Format("{0} (Column {1}),", colName, excelCol);
+                        if (counter == 0)
+                        {
+                            string excelCol = GetExcelColEquiv(refIndex);
+                            string colName = header[refIndex - 1];
+                            content += String.Format("{0} (Column {1}),", colName, excelCol);
 
 
-                        excelCol = GetExcelColEquiv(error.Column);
-                        colName = header[error.Column - 1];
-                        content += String.Format("{0} (Column {1})\n", colName, excelCol);
+                            excelCol = GetExcelColEquiv(error.Column);
+                            colName = header[error.Column - 1];
+                            content += String.Format("{0} (Column {1})\n", colName, excelCol);
+                        }
 
-                        content += String.Format("{0},{1}\n", row[int.Parse(parts[0]) - 1], parts[1]);
+                        content += String.Format("{0},{1}\n", row[refIndex - 1], parts[1]);
+
+                        counter++;
                     }
                 }
             }
