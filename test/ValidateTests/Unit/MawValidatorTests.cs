@@ -6,6 +6,7 @@ namespace FormatValidatorTests.Unit
     using System.IO;
     using System.Linq;
     using System.Net.Mail;
+    using System.Text.RegularExpressions;
     using FormatValidator;
     using FormatValidator.Validators;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,15 +27,15 @@ namespace FormatValidatorTests.Unit
 
                 string[] parts = Path.GetFileName(file).Replace(".csv", "").Split('-');
 
-                if (parts.Length == 3)
+                try
                 {
-                    string chid = parts[0];
-                    string function = parts[1];
-                    string email = parts[2];
-                    string[] header = new string[] { };
-
-                    try
+                    if (IsValidFileName(parts))
                     {
+                        string chid = parts[0];
+                        string function = parts[1];
+                        string email = parts[2];
+                        string[] header = new string[] { };
+
                         string JSON = System.IO.File.ReadAllText(@"Data/Configuration/maw-" + function.ToLower() + "-config.json");
 
                         // Add the chapter id to the json string
@@ -106,13 +107,65 @@ namespace FormatValidatorTests.Unit
                         //SmtpClient smtp = new SmtpClient("wish-org.mail.protection.outlook.com");
                         SmtpClient smtp = new SmtpClient("192.168.100.34");
                         smtp.Send(message);
-                    }
-                    catch (Exception ex)
-                    {
 
                     }
+                    else
+                        throw new Exception("Invalid filename " + file);
+
+                }
+                catch (Exception ex)
+                {
+                    // Email web services
                 }
             }
+        }
+
+        /// <summary>
+        /// Is valid file name
+        /// </summary>
+        /// <param name="parts"></param>
+        /// <returns></returns>
+        private bool IsValidFileName(string[] parts)
+        {
+            bool isValid = true;
+            int chid = 0;
+
+            if (parts.Length != 3)
+                isValid = false;
+
+            if (!int.TryParse(parts[0], out chid))
+                isValid = false;
+
+            if (!IsValidFunction(parts[1]))
+                isValid = false;
+
+            if (!Regex.IsMatch(parts[2], @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase))
+                isValid = false;
+
+            return isValid;
+
+        }
+
+        /// <summary>
+        /// Is valid function
+        /// </summary>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        private bool IsValidFunction(string func)
+        {
+            bool isValid = false;
+
+            switch (func)
+            {
+                case "Constituent":
+                case "Interest":
+                    isValid = true;
+                    break;
+                default:
+                    break;
+            }
+
+            return isValid;
         }
 
         /// <summary>
