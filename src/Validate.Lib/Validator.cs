@@ -18,8 +18,10 @@ namespace FormatValidator
     public class Validator
     {
         private RowValidator _rowValidator;
+        private ColumnValidator _colValidator;
         private string _rowSeperator;
         private int _totalRowsChecked;
+        private int _totalColsChecked;
         private bool _hasHeaderRow;
         private ConnectionStrings _connectionStrings;
         private string _chapterId;
@@ -35,6 +37,7 @@ namespace FormatValidator
         internal Validator()
         {
             _rowValidator = new RowValidator();
+            _colValidator = new ColumnValidator();
             _rowSeperator = "\r\n";
         }
 
@@ -84,7 +87,6 @@ namespace FormatValidator
 
                 if (IsHeaderRow())
                 {
-                    Header = _rowValidator.GetHeader(line);
                 }
                 else if (!_rowValidator.IsValid(line))
                 {
@@ -93,6 +95,38 @@ namespace FormatValidator
                     _rowValidator.ClearErrors();
 
                     yield return error;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Validate the provided <paramref name="reader" />.
+        /// </summary>
+        /// <param name="reader">The data source to validate</param>
+        /// <returns>An enumerable of <see cref="ColumnValidationError" /> </returns>
+        public IEnumerable<ColumnValidationError> ValidateCols(ISourceReader reader)
+        {
+            foreach (string line in reader.ReadLines(_rowSeperator))
+            {
+                if (IsHeaderRow())
+                {
+                    Header = _rowValidator.GetHeader(line);
+
+                    foreach (string col in Header)
+                    {
+                        _totalColsChecked++;
+
+                        if (!_colValidator.IsValid(col))
+                        {
+                            ColumnValidationError error = _colValidator.GetError();
+                            error.Column = _totalColsChecked;
+                            _colValidator.ClearErrors();
+
+                            yield return error;
+                        }
+                    }
+
+                    break;
                 }
             }
         }
@@ -173,6 +207,14 @@ namespace FormatValidator
         public int TotalRowsChecked
         {
             get { return _totalRowsChecked; }
+        }
+
+        /// <summary>
+        /// Total number of columns that were checked in the last validation.
+        /// </summary>
+        public int TotalColsChecked
+        {
+            get { return _totalColsChecked; }
         }
     }
 }

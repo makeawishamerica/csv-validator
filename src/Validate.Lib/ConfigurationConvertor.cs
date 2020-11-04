@@ -50,6 +50,10 @@ namespace FormatValidator
                     if (!string.IsNullOrWhiteSpace(columnConfig.Value.Pattern)) group.Add(new TextFormatValidator(columnConfig.Value.Pattern));
                     if (columnConfig.Value.IsNumeric) group.Add(new NumberValidator());
                     if (columnConfig.Value.IsRequired) group.Add(new NotNullableValidator());
+                    if (!string.IsNullOrWhiteSpace(columnConfig.Value.Name))
+                    {
+                        group.Add(new NameValidator(columnConfig.Value.Name));
+                    }
                     if (columnConfig.Value.IsDate)
                     {
                         group.Add(new DateValidator());
