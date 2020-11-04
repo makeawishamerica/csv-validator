@@ -16,7 +16,7 @@ namespace FormatValidatorTests.Unit
             Validator validator = new Validator();
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void Validator_WhenCreatedFromJson_ReturnsAValidator()
         {
             string JSON = System.IO.File.ReadAllText(@"data\configuration\configuration.json");
