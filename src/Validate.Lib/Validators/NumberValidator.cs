@@ -8,9 +8,9 @@ namespace FormatValidator.Validators
             double parsed = 0;
             bool isValid = string.IsNullOrWhiteSpace(toCheck) || double.TryParse(toCheck, out parsed);
 
-            if(!isValid)
+            if (!isValid)
             {
-                base.Errors.Add(new ValidationError(0, string.Format("Could not convert '{0}' to a number.", toCheck)));
+                base.Errors.Add(new ValidationError(0, "Invalid value: value must be a whole number"));
             }
 
             return isValid;

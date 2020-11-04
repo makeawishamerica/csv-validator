@@ -16,8 +16,10 @@
     },
     "3": {
       "name": "PRIMARY_EMAIL",
+      "referenceCol": 4,
+      "isEmail": true,
+      "isUnique": true,
       "isRequired": true,
-      "isEmail":  true,
       "isConstituentLookup": true
     },
     "4": {
@@ -34,7 +36,7 @@
     "6": {
       "name": "OPT_IN_FLAG",
       "isRequired": true,
-      "isBoolean":  true
+      "isBoolean": true
     },
     "7": {
       "name": "DESCRIPTION (TO BE DELETED)"

@@ -13,7 +13,7 @@ namespace FormatValidator.Validators
 
             if (!isValid)
             {
-                base.Errors.Add(new ValidationError(0, string.Format("Could not convert '{0}' to a boolean.", toCheck)));
+                base.Errors.Add(new ValidationError(0, "Value is not Boolean (1/TRUE or 0/FALSE)"));
             }
 
             return isValid;

@@ -33,7 +33,9 @@ namespace FormatValidator.Validators
 
             if (table.Rows.Count > 0)
             {
-                base.Errors.Add(new ValidationError(0, string.Format("Inactive constitutent '{0}'.", toCheck)));
+                base.Errors.Add(new ValidationError(0, "This is an inactive constituent. " +
+                    "Put in a support ticket request with Blackbaud to reactivate this constituent " +
+                    "or remove the constituent from the import."));
                 return false;
             }
 

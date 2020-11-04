@@ -10,13 +10,16 @@
   "columns": {
     "1": {
       "name": "CUSTOM_STRING7_(CONSREID)",
-      "isRequired": true
+      "pattern": "[^A-Za-z0-9]+",
+      "isRequired": true,
+      "code": "Invalid value: value is not numeric/text"
     },
     "2": {
       "name": "CONS_ID",
       "isNumeric": true,
       "pattern": "^\\d\\d\\d\\d\\d\\d\\d$",
-      "isConstituentLookup": true
+      "isConstituentLookup": true,
+      "code": "Value is not numeric/7 digits"
     },
     "3": {
       "name": "FIRST_NAME"
@@ -27,6 +30,7 @@
     "5": {
       "name": "PRIMARY_EMAIL",
       "referenceCol": 2,
+      "isEmail": true,
       "isUnique": true,
       "isRequired": true,
       "isConstituentLookup": true
@@ -54,11 +58,15 @@
     },
     "13": {
       "name": "BIRTH_DATE",
-      "isDate": true
+      "isDate": true,
+      "pattern": "\\d\\d\\d\\d-\\d\\d-\\d\\d\\d\\d",
+      "code": "Invalid value: '{0}'; Input must be in yyyy-MM-dd form"
     },
     "14": {
       "name": "EXTERNAL_LAST_GIFT_DATE",
-      "isDate": true
+      "isDate": true,
+      "pattern": "\\d\\d\\d\\d-\\d\\d-\\d\\d\\d\\d",
+      "code": "Invalid value: '{0}'; Input must be in yyyy-MM-dd form"
     },
     "15": {
       "name": "CUSTOM_STRING1_(CDMP_ID)"
@@ -72,7 +80,9 @@
     },
     "18": {
       "name": "EXTERNAL_LARGEST_GIFT_DATE",
-      "isDate": true
+      "isDate": true,
+      "pattern": "\\d\\d\\d\\d-\\d\\d-\\d\\d\\d\\d",
+      "code": "Invalid value: '{0}'; Input must be in yyyy-MM-dd form"
     },
     "19": {
       "name": "EXTERNAL_LARGEST_GIFT_AMOUNT",

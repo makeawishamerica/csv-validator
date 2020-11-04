@@ -47,7 +47,10 @@ namespace FormatValidator
 
                     if (columnConfig.Value.Unique) group.Add(new UniqueColumnValidator());
                     if (columnConfig.Value.MaxLength > 0) group.Add(new StringLengthValidator(columnConfig.Value.MaxLength));
-                    if (!string.IsNullOrWhiteSpace(columnConfig.Value.Pattern)) group.Add(new TextFormatValidator(columnConfig.Value.Pattern));
+                    if (!string.IsNullOrWhiteSpace(columnConfig.Value.Pattern))
+                    {
+                        group.Add(new TextFormatValidator(columnConfig.Value.Code, columnConfig.Value.Pattern));
+                    }
                     if (columnConfig.Value.IsNumeric) group.Add(new NumberValidator());
                     if (columnConfig.Value.IsRequired) group.Add(new NotNullableValidator());
                     if (!string.IsNullOrWhiteSpace(columnConfig.Value.Name))

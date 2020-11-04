@@ -15,6 +15,8 @@ namespace FormatValidator
 
         public bool IsRequired { get; set; }
 
+        public string Code { get; set; }
+
         public int ReferenceCol { get; set; }
 
         public bool IsUnique { get; set; }

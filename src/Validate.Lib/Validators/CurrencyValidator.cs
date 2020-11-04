@@ -12,7 +12,7 @@ namespace FormatValidator.Validators
 
             if (!isValid)
             {
-                base.Errors.Add(new ValidationError(0, string.Format("Could not convert '{0}' to a currency.", toCheck)));
+                base.Errors.Add(new ValidationError(0, "Invalid value: value must be currency"));
             }
 
             return isValid;

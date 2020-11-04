@@ -11,7 +11,7 @@ namespace FormatValidator.Validators
 
         public string ChapterId { get; set; }
 
-        public InterestValidator(string connectionString, string chid) :base()
+        public InterestValidator(string connectionString, string chid) : base()
         {
             DbaseManager = new DbaseManager(connectionString);
             DbaseManager.IsDebug = true;
@@ -32,14 +32,14 @@ namespace FormatValidator.Validators
 
             if (table.Rows.Count == 0)
             {
-                base.Errors.Add(new ValidationError(0, string.Format("Invalid group '{0}'.", toCheck)));
+                base.Errors.Add(new ValidationError(0, "This is not a valid Interest Group"));
                 isValidGroup = false;
             }
             else
-            {          
+            {
                 if (!ChapterId.Equals(table.Rows[0]["ChapterId"]))
                 {
-                    base.Errors.Add(new ValidationError(0, string.Format("Invalid chapter group '{0}' for Chapter #{1}.", toCheck, ChapterId)));
+                    base.Errors.Add(new ValidationError(0, "This is not a valid Interest Group for your chapter"));
                     isValidChapterGroup = false;
                 }
             }
