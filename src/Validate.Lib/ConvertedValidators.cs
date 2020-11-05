@@ -23,5 +23,7 @@ namespace FormatValidator
         public ConnectionStrings ConnectionStrings { get; set; }
 
         public string ChapterId { get; set; }
+
+        public string Environment { get; internal set; }
     }
 }

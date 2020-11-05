@@ -32,6 +32,7 @@ namespace FormatValidator
         {
             _converted.RowSeperator = UnescapeString(_fromConfig.RowSeperator);
             _converted.ColumnSeperator = UnescapeString(_fromConfig.ColumnSeperator);
+            _converted.Environment = _fromConfig.Environment;
             _converted.HasHeaderRow = _fromConfig.HasHeaderRow;
             _converted.ConnectionStrings = _fromConfig.ConnectionStrings;
             _converted.ChapterId = _fromConfig.ChapterId;
@@ -41,6 +42,13 @@ namespace FormatValidator
         {
             if (ConfigHasColumns())
             {
+                string connectionString = _converted.ConnectionStrings.Dev;
+
+                if (_converted.Environment.Equals("staging"))
+                    connectionString = _converted.ConnectionStrings.Staging;
+                else if (_converted.Environment.Equals("prod"))
+                    connectionString = _converted.ConnectionStrings.Prod;
+
                 foreach (KeyValuePair<int, ColumnValidatorConfiguration> columnConfig in _fromConfig.Columns)
                 {
                     List<IValidator> group = new List<IValidator>();
@@ -79,11 +87,11 @@ namespace FormatValidator
                     }
                     if (columnConfig.Value.IsConstituentLookup)
                     {
-                        group.Add(new ConstituentValidator(_converted.ConnectionStrings.Dev));
+                        group.Add(new ConstituentValidator(connectionString));
                     }
                     if (columnConfig.Value.IsInterestLookup)
                     {
-                        group.Add(new InterestValidator(_converted.ConnectionStrings.Dev, _converted.ChapterId));
+                        group.Add(new InterestValidator(connectionString, _converted.ChapterId));
                     }
 
                     _converted.Columns.Add(columnConfig.Key, group);
