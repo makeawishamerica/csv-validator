@@ -31,6 +31,6 @@ namespace FormatValidator
 
         public string ChapterId { get; set; }
 
-        public string Environment { get; internal set; }
+        public string Environment { get; set; }
     }
 }
