@@ -5,7 +5,7 @@ namespace FormatValidator
     using Validate.Lib;
     using Validators;
 
-    public class ConvertedValidators
+    internal class ConvertedValidators
     {
         public ConvertedValidators()
         {
