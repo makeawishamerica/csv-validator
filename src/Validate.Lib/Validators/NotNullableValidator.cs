@@ -6,9 +6,9 @@ namespace FormatValidator.Validators
         public override bool IsValid(string toCheck)
         {
             bool isValid = !string.IsNullOrEmpty(toCheck);
-            if(!isValid)
+            if (!isValid)
             {
-                base.Errors.Add(new ValidationError(0, "Expected a value but none was provided."));
+                base.Errors.Add(new ValidationError(0, "Field is Blank"));
             }
 
             return isValid;

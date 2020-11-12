@@ -3,7 +3,9 @@
 [assembly: InternalsVisibleTo("ValidateTests")]
 namespace FormatValidator
 {
+    using System;
     using System.Collections.Generic;
+    using Validate.Lib;
     using Validators;
 
     /// <summary>
@@ -16,9 +18,17 @@ namespace FormatValidator
     public class Validator
     {
         private RowValidator _rowValidator;
+        private ColumnValidator _colValidator;
         private string _rowSeperator;
         private int _totalRowsChecked;
         private bool _hasHeaderRow;
+        private ConnectionStrings _connectionStrings;
+        private string _chapterId;
+
+        /// <summary>
+        /// Gets or Sets the header.
+        /// </summary>
+        public string[] Header { get; set; }
 
         /// <summary>
         /// Initialises a new instance of Validator
@@ -26,6 +36,7 @@ namespace FormatValidator
         internal Validator()
         {
             _rowValidator = new RowValidator();
+            _colValidator = new ColumnValidator();
             _rowSeperator = "\r\n";
         }
 
@@ -54,6 +65,8 @@ namespace FormatValidator
             Validator validator = new Validator();
             validator.SetColumnSeperator(converted.ColumnSeperator);
             validator.SetRowSeperator(converted.RowSeperator);
+            validator.SetConnectionStrings(converted.ConnectionStrings);
+            validator.SetChapterId(converted.ChapterId);
             validator.TransferConvertedColumns(converted);
             validator._hasHeaderRow = converted.HasHeaderRow;
 
@@ -86,6 +99,29 @@ namespace FormatValidator
         }
 
         /// <summary>
+        /// Validate the provided <paramref name="reader" />.
+        /// </summary>
+        /// <param name="reader">The data source to validate</param>
+        /// <returns>An enumerable of <see cref="ColumnValidationError" /> </returns>
+        public IEnumerable<ColumnValidationError> ValidateCols(ISourceReader reader)
+        {
+            foreach (string line in reader.ReadLines(_rowSeperator))
+            {
+                Header = _rowValidator.GetHeader(line);
+
+                if (!_colValidator.IsValid(line))
+                {
+                    ColumnValidationError error = _colValidator.GetError();
+                    _colValidator.ClearErrors();
+
+                    yield return error;
+                }
+
+                break; // only process the first line
+            }
+        }
+
+        /// <summary>
         /// Change the column seperator
         /// </summary>
         /// <param name="seperator">The seperator</param>
@@ -94,22 +130,48 @@ namespace FormatValidator
             if (string.IsNullOrEmpty(seperator))
             {
                 _rowValidator.ColumnSeperator = ",";
+                _colValidator.ColumnSeperator = ",";
             }
             else
             {
                 _rowValidator.ColumnSeperator = seperator;
+                _colValidator.ColumnSeperator = seperator;
             }
         }
 
-		/// <summary>
-		/// Change the row seperator
-		/// </summary>
-		/// <param name="rowSeperator"></param>
+        /// <summary>
+        /// Change the row seperator
+        /// </summary>
+        /// <param name="rowSeperator"></param>
         public void SetRowSeperator(string rowSeperator)
         {
             if (!string.IsNullOrEmpty(rowSeperator))
             {
                 _rowSeperator = rowSeperator;
+            }
+        }
+
+        /// <summary>
+        /// Change the connection strings
+        /// </summary>
+        /// <param name="seperator">The seperator</param>
+        public void SetConnectionStrings(ConnectionStrings conn)
+        {
+            if (conn != null)
+            {
+                _connectionStrings = conn;
+            }
+        }
+
+        /// <summary>
+        /// The set chapter id.
+        /// </summary>
+        /// <param name="chapterId">The chapter id.</param>
+        public void SetChapterId(string chapterId)
+        {
+            if (!String.IsNullOrEmpty(chapterId))
+            {
+                _chapterId = chapterId;
             }
         }
 
@@ -124,16 +186,23 @@ namespace FormatValidator
             {
                 foreach (IValidator columnValidator in column.Value)
                 {
-                    _rowValidator.AddColumnValidator(column.Key, columnValidator);
+                    if (columnValidator.GetType().Equals(typeof(NameValidator)))
+                    {
+                        _colValidator.AddColumnValidator(column.Key, columnValidator);
+                    }
+                    else
+                    {
+                        _rowValidator.AddColumnValidator(column.Key, columnValidator);
+                    }
                 }
             }
         }
 
         private bool IsHeaderRow() => _hasHeaderRow && _totalRowsChecked == 1;
 
-		/// <summary>
-		/// Total number of rows that were checked in the last validation.
-		/// </summary>
+        /// <summary>
+        /// Total number of rows that were checked in the last validation.
+        /// </summary>
         public int TotalRowsChecked
         {
             get { return _totalRowsChecked; }

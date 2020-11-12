@@ -7,6 +7,7 @@ namespace FormatValidator.Validators
     {
         private Regex _format;
         private string _originFormatString;
+        private string _code;
 
         public TextFormatValidator(string format)
         {
@@ -14,12 +15,24 @@ namespace FormatValidator.Validators
             _originFormatString = format;
         }
 
+        public TextFormatValidator(string code, string format) : this(format)
+        {
+            _code = code;
+        }
+
         public override bool IsValid(string toCheck)
         {
             bool isValid = string.IsNullOrWhiteSpace(toCheck) || _format.IsMatch(toCheck);
-            if(!isValid)
+            if (!isValid)
             {
-                base.Errors.Add(new ValidationError(0, string.Format("String '{0}' was not in correct format [{1}].", toCheck, _originFormatString)));
+                if (!string.IsNullOrEmpty(_code))
+                {
+                    base.Errors.Add(new ValidationError(0, string.Format(_code, toCheck)));
+                }
+                else
+                {
+                    base.Errors.Add(new ValidationError(0, string.Format("String '{0}' was not in correct format [{1}].", toCheck, _originFormatString)));
+                }
             }
             return isValid;
         }

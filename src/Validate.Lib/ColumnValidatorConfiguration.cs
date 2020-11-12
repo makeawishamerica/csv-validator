@@ -13,6 +13,24 @@ namespace FormatValidator
 
         public bool IsNumeric { get; set; }
 
-        public bool IsRequired { get; set; }        
+        public bool IsRequired { get; set; }
+
+        public string Code { get; set; }
+
+        public int ReferenceCol { get; set; }
+
+        public bool IsUnique { get; set; }
+
+        public bool IsCurrency { get; set; }
+
+        public bool IsDate { get; set; }
+
+        public bool IsBoolean { get; set; }
+
+        public bool IsEmail { get; set; }
+
+        public bool IsConstituentLookup { get; set; }
+
+        public bool IsInterestLookup { get; set; }
     }
 }

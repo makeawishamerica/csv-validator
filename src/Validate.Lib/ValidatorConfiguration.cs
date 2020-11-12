@@ -2,6 +2,7 @@
 namespace FormatValidator
 {
     using System.Collections.Generic;
+    using Validate.Lib;
 
     /// <summary>
     /// A direct representation of the Data read from the configuration file
@@ -25,5 +26,11 @@ namespace FormatValidator
         public bool HasHeaderRow { get; set; }
 
         public Dictionary<int, ColumnValidatorConfiguration> Columns { get; set; }
+
+        public ConnectionStrings ConnectionStrings { get; set; }
+
+        public string ChapterId { get; set; }
+
+        public string Environment { get; set; }
     }
 }

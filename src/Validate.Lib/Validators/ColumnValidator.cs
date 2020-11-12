@@ -10,23 +10,23 @@ namespace FormatValidator.Validators
     /// row of the file being validated.
     /// </summary>
     /// <seealso cref="Validator"/>
-    internal class RowValidator
+    internal class ColumnValidator
     {
         private ValidatorGroup[] _columns;
-        private RowValidationError _errorInformation;
+        private ColumnValidationError _errorInformation;
         private string _columnSeperator;
 
-        public RowValidator()
+        public ColumnValidator()
         {
-            _errorInformation = new RowValidationError();
+            _errorInformation = new ColumnValidationError();
             _columns = new ValidatorGroup[0];
         }
 
-        public RowValidator(string columnSeperator) : this()
+        public ColumnValidator(string columnSeperator) : this()
         {
             _columnSeperator = columnSeperator;
         }
-        
+
         /// <summary>
         /// Runs all of the column validators against the string provided in <paramref name="toCheck"/>.
         /// </summary>
@@ -65,15 +65,15 @@ namespace FormatValidator.Validators
             return isValid;
         }
 
-        public RowValidationError GetError()
+        public ColumnValidationError GetError()
         {
             return _errorInformation;
         }
 
         public void ClearErrors()
         {
-            _errorInformation = new RowValidationError();
-            foreach(ValidatorGroup current in _columns)
+            _errorInformation = new ColumnValidationError();
+            foreach (ValidatorGroup current in _columns)
             {
                 current.ClearErrors();
             }
